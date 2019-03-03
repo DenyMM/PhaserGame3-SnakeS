@@ -1,4 +1,5 @@
 import Snake from '../gameobjects/Snake.js'
+import Food from '../gameobjects/Food.js'
 class Play extends Phaser.Scene {
   constructor() {
     super('Play');
@@ -8,6 +9,7 @@ class Play extends Phaser.Scene {
     /* cargar imagenes individualmente
     this.add.image(10, 10, 'Body');*/
     this.snake = new Snake(this);
+    this.food = new Food(this);
   }
   create(){
     this.input.keyboard.on('keydown_RIGHT', () => {

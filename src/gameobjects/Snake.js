@@ -6,18 +6,30 @@ class Snake {
     this.timmer = 0;
     this.oldDir = 'derecha';  // para que no se regrese
 
-     for(let i = 0; i < 10; i++){
+     //genera cuerpo de personaje
+     for(let i = 0; i < 3; i++){
        this.body.push(
          this.scene.physics.add.image(100 + i * 10, 100, 'Body')
              .setOrigin(0)
            );
      }
+     //genera colisiones
      for(let i = 1; i < 10; i++){
        this.scene.physics.add.collider(this.body[0], this.body[i], () => this.choca());
      }
+     setInterval(() => {
+       this.crece();
+     }, 1000);
+  }
+  crece(){
+      const obj =  this.body[this.body.length-1];
+      //crea nuevo objeto a agregar al cuerpo
+      const newObj = this.scene.physics.add.image(obj.x, obj.y, 'Body').setOrigin(0);
+      this.body.push(newObj);
+      this.scene.physics.add.collider(this.body[0], newObj, () => this.choca());
   }
   choca(){
-    alert('choco!!');
+     this.scene.scene.start('Gameover');
   }
   changeMov(dir){
     if(this.oldDir != dir){
